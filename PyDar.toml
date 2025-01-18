@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PyDar"
+version = "0.1.0"
+description = "Tool for advanced radar analysis"
+authors = [
+    { name = "Tom Deep", email = "tomgdeep@yahoo.com" }
+]
+license = "MIT"
+dependencies = []
+
+[project.scripts]
+greetings = "radar.cli:main"
