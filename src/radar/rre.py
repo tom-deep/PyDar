@@ -5,22 +5,22 @@ class RRE:
     Class for Radar Range Equation
     """
 
-    def __init__(self, area=None, height=None, width=None, efficiency=None, a_eff=None, freq=None, gain=None, smin=None, max_detection=None, rcs=None, range=None):
+    def __init__(self, area=None, height=None, width=None, efficiency=None, a_eff=None,
+                 freq=None, gain=None, smin=None, max_detection=None, rcs=None, range=None,
+                 power=None, wl=None):
         """
         Initialize RRE Params
         """
-        self.wl = None
-        self.power = None
+        self.wl = wl
+        self.power = power
 
         # init height
         self.height = height
         self.width = width
-        if area is None:
-            if height is not None and width is not None:
-                self.area = height*width
-        else:
-            self.area = area
+        self.area = area or (height * width if height and width else None)
 
+        if freq:
+            self.wl = 3e8 / (freq * 1e6)
 
         self.efficiency = efficiency
         self.a_eff = a_eff
@@ -62,7 +62,7 @@ class RRE:
 
         gain = (4 * math.pi * self.a_eff) / self.wl**2
         # Convert to dB
-        self.gain = math.log10(gain)
+        self.gain = 10*math.log10(gain)
 
         return self.gain
 
